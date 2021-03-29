@@ -1,0 +1,121 @@
+﻿@page "/eventi"
+
+
+@if (EventoCorrente == null)
+{
+    <ListaEventi ListaElementi="ListaEventi" OnElimina="EliminaEvento"
+                 OnCrea="CreaEvento" OnModifica="ModificaEvento" />
+}
+else
+{
+    <DettaglioEvento DettaglioElemento="EventoCorrente"
+                     OnSalva="SalvaEvento" OnAnnulla="AnnullaOperazione" />
+}
+
+@code {
+
+
+    public Evento EventoCorrente { get; set; }
+
+
+
+    public void CreaEvento()
+    {
+        this.EventoCorrente = new Evento();
+    }
+
+
+
+    public void EliminaEvento(ElementoListaEventi evento)
+    {
+        this.ListaEventi.Remove(evento);
+    }
+
+
+
+    public void ModificaEvento(ElementoListaEventi evento)
+    {
+        this.EventoCorrente = new Evento()
+        {
+            Id = evento.Id,
+            Nome = evento.Nome,
+            Localita = evento.Localita,
+            Data = evento.Data,
+            Descrizione = evento.Descrizione,
+            Note = evento.Note
+        };
+    }
+
+    public void SalvaEvento(Evento evento)
+    {
+        if (evento.Id == 0)
+        {
+            this.ListaEventi.Add(new ElementoListaEventi()
+            {
+                Id = this.ListaEventi.Count() > 0 ? this.ListaEventi.Max(x => x.Id) + 1 : 1,
+                Nome = evento.Nome,
+                Localita = evento.Localita,
+                Data = evento.Data,
+                Descrizione = evento.Descrizione,
+                Note = evento.Note
+            });
+        }
+        else
+        {
+            var eventoDaModificare = this.ListaEventi.Single(x => x.Id == evento.Id);
+            eventoDaModificare.Nome = evento.Nome;
+            eventoDaModificare.Localita = evento.Localita;
+            eventoDaModificare.Data = evento.Data;
+            eventoDaModificare.Descrizione = evento.Descrizione;
+            eventoDaModificare.Note = evento.Note;
+        }
+        this.EventoCorrente = null;
+    }
+
+
+
+    public void AnnullaOperazione()
+    {
+        this.EventoCorrente = null;
+    }
+
+
+
+
+
+
+
+
+    List<ElementoListaEventi> ListaEventi { get; set; }
+       = new List<ElementoListaEventi>
+           {
+                new ElementoListaEventi()
+                { Id = 1,
+                    Nome="Assoservizi",
+                    Localita="Arezzo",
+                    Descrizione="Inizio stage",
+                    Note=" Ritiro Registro presenze",
+                    Data = new DateTime(2021, 2,22)
+                },
+                new ElementoListaEventi()
+                { Id = 2,
+                    Nome="Daniele Simoncini",
+                    Localita="San Giovanni Valdarno",
+                    Descrizione="Fine stage",
+                    Note="Firmare Registro presenze",
+                    Data = new DateTime(2021, 4, 21)
+                },
+                new ElementoListaEventi()
+                { Id = 3,
+                    Nome="Marinella Guerra",
+                    Localita="Arezzo",
+                    Descrizione="Esami",
+                    Note="Consegnare registro presenze",
+                    Data = new DateTime(2021, 5, 20)
+                }
+               };
+
+
+
+
+        }

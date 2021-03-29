@@ -1,0 +1,179 @@
+﻿
+@page "/progetti"
+
+
+@if (ProgettoCorrente == null)
+{
+    <ListaProgetti ListaElementiProgetto="ListaProgetti" 
+                   OnEliminaProgetto="EliminaProgetto"
+                   OnCreaProgetto="CreaProgetto" 
+                   OnModificaProgetto="ModificaProgetto" />
+}
+else
+{
+    <DettaglioProgetto DettaglioParte ="ProgettoCorrente"
+                     OnSalvaProgetto="SalvaProgetto" 
+					 OnAnnullaProgetto="AnnullaOperazione" />
+}
+
+@code{
+
+
+
+    public Prospetto ProgettoCorrente { get; set; }
+
+
+    public void CreaProgetto()
+    {
+        this.ProgettoCorrente = new Prospetto();
+    }
+
+
+    public void EliminaProgetto(ElementoListaProgetti progetto)
+    {
+        this.ListaProgetti.Remove(progetto);
+    }
+
+
+
+    public void ModificaProgetto(ElementoListaProgetti progetto)
+    {
+        this.ProgettoCorrente = new Prospetto()
+        {
+            Id = progetto.Id,
+            NomeProgetto = progetto.NomeProgetto,
+            Cliente = progetto.Cliente,
+            Descrizione = progetto.Descrizione,
+            Note = progetto.Note,
+            DataInizio = progetto.DataInizio,
+            DataScadenza = progetto.DataScadenza,
+            DataFine = progetto.DataFine,
+            Prezzo = progetto.Prezzo,
+            Variazione = progetto.Variazione,
+            Pagato = progetto.Pagato,
+            Archiviato = progetto.Archiviato
+        };
+    }
+
+    public void SalvaProgetto(Prospetto progetto)
+    {
+        if (progetto.Id == 0)
+        {
+            this.ListaProgetti.Add(new ElementoListaProgetti()
+            {
+                Id = this.ListaProgetti.Count() > 0 ? this.ListaProgetti.Max(x => x.Id) + 1 : 1,
+                NomeProgetto = progetto.NomeProgetto,
+                Cliente = progetto.Cliente,
+                Descrizione = progetto.Descrizione,
+                Note = progetto.Note,
+                DataInizio = progetto.DataInizio,
+                DataScadenza = progetto.DataScadenza,
+                DataFine = progetto.DataFine,
+                Prezzo = progetto.Prezzo,
+                Variazione = progetto.Variazione,
+                Pagato = progetto.Pagato,
+                Archiviato = progetto.Archiviato
+            });
+        }
+        else
+        {
+            var progettoDaModificare = this.ListaProgetti.Single(x => x.Id == progetto.Id);
+            progettoDaModificare.NomeProgetto = progetto.NomeProgetto;
+            progettoDaModificare.Cliente = progetto.Cliente;
+            progettoDaModificare.Descrizione = progetto.Descrizione;
+            progettoDaModificare.Note = progetto.Note;
+            progettoDaModificare.DataInizio = progetto.DataInizio;
+            progettoDaModificare.DataScadenza = progetto.DataScadenza;
+            progettoDaModificare.DataFine = progetto.DataFine;
+            progettoDaModificare.Prezzo = progetto.Prezzo;
+            progettoDaModificare.Variazione = progetto.Variazione;
+            progettoDaModificare.Pagato = progetto.Pagato;
+            progettoDaModificare.Archiviato = progetto.Archiviato;
+
+        }
+        this.ProgettoCorrente = null;
+    }
+
+
+
+    public void AnnullaOperazione()
+    {
+        this.ProgettoCorrente = null;
+    }
+
+
+
+    List<ElementoListaProgetti> ListaProgetti { get; set; }
+       = new List<ElementoListaProgetti>
+           {
+                new ElementoListaProgetti()
+                { Id = 1,
+                  NomeProgetto = "Gestionale lavori in corso",
+                  Cliente = "Claudia Boschi",
+                  Descrizione = " gestione archiviati, pagati, scadenze, prezzo ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 22),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo =200,
+                  Variazione =-50,
+                  Pagato = false,
+                  Archiviato = false
+                },
+
+                new ElementoListaProgetti()
+                { Id = 2,
+                  NomeProgetto = "Gestionale appuntamenti",
+                  Cliente = "Daniele Simoncini",
+                  Descrizione = "gestione appuntamenti CRUD",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 100,
+                  Variazione = -50,
+                  Pagato =false,
+                  Archiviato = false
+                },
+
+                new ElementoListaProgetti()
+                {
+                  Id =3,
+
+                  NomeProgetto = "Rubrica",
+
+                  Cliente = "Antonella Marinelli",
+
+                  Descrizione = "Gestionale contatti",
+
+                  Note = "blazor wasm",
+
+                  DataInizio = new DateTime(2021, 2, 22),
+
+                  DataScadenza = new DateTime(2021, 4, 21),
+
+                  DataFine = new DateTime(2030, 1, 1),
+
+                  Prezzo = 150,
+
+                  Variazione = 0,
+
+                  Pagato = false,
+
+                  Archiviato = true
+                }
+               };
+
+
+
+
+}
+
+
+							
+	 
+										   
+	 
+
+
+

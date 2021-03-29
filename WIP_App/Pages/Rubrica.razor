@@ -1,0 +1,145 @@
+﻿@page "/Rubrica"
+
+<h4>Rubrica</h4>
+
+@if (ContattoCorrente == null)
+{
+    
+
+    <ListaContatti 
+              ListaElementiContatto="ListaContatti"
+			  OnEliminaContatto="EliminaContatto"
+              OnCreaContatto="CreaContatto"
+              OnModificaContatto="ModificaContatto"
+    />
+}
+else
+{
+    <DettaglioContatto DettaglioElementoContatto="ContattoCorrente"
+                      OnSalvaContatto="SalvaContatto"
+                      OnAnnullaContatto="AnnullaOperazione"
+                      />
+
+}
+
+	  
+@code {
+				
+    public Profilo ContattoCorrente { get; set; }
+
+
+    public void CreaContatto()
+    {
+        this.ContattoCorrente = new Profilo();
+    }
+
+
+	public void EliminaContatto(Contatto contatto)
+    {
+        this.ListaContatti.Remove(contatto);
+    }
+
+
+
+    public void ModificaContatto(Contatto contatto)
+    {
+        this.ContattoCorrente = new Profilo()
+        {
+            Id = contatto.Id,
+            Nome = contatto.Nome,
+            Cognome = contatto.Cognome,
+            Azienda = contatto.Azienda,
+            Indirizzo = contatto.Indirizzo,
+            Telefono = contatto.Telefono,
+            Email = contatto.Email,
+            Note = contatto.Note
+        };
+    }
+
+
+
+
+
+    public void SalvaContatto(Profilo contatto)
+    {
+        if (contatto.Id == 0)
+        {
+            this.ListaContatti.Add(new Contatto()
+            {
+                Id = this.ListaContatti.Count() > 0 ? this.ListaContatti.Max(x => x.Id) + 1 : 1,
+                Nome = contatto.Nome,
+                Cognome = contatto.Cognome,
+                Azienda = contatto.Azienda,
+                Indirizzo = contatto.Indirizzo,
+                Telefono = contatto.Telefono,
+                Email = contatto.Email,
+                Note = contatto.Note
+
+            });
+        }
+        else
+        {
+            var contattoDaModificare = this.ListaContatti.Single(x => x.Id == contatto.Id);
+            contattoDaModificare.Nome = contatto.Nome;
+			contattoDaModificare.Cognome = contatto.Cognome;
+			contattoDaModificare.Azienda = contatto.Azienda;
+			contattoDaModificare.Indirizzo = contatto.Indirizzo;
+			contattoDaModificare.Telefono = contatto.Telefono;
+			contattoDaModificare.Email = contatto.Email;
+			contattoDaModificare.Note = contatto.Note;
+        }
+        this.ContattoCorrente = null;
+    }
+
+
+
+
+    public void AnnullaOperazione()
+    {
+        this.ContattoCorrente = null;
+    }
+
+
+
+
+
+
+
+    List<Contatto> ListaContatti { get; set; }
+= new List<Contatto>
+   {
+                    new Contatto() {
+                                Id = 1,
+                                Nome="Mario",
+                                Cognome="Bross",
+                                Azienda="Nintendo",
+                                Indirizzo="Via dei tubi, 44,52100 Arezzo",
+                                Telefono="123456789",
+                                Email="Super@Mario.com",
+                                Note="SuperMario",
+                                },
+
+                new Contatto() {
+                                Id = 2,
+                                Nome="Pinco",
+                                Cognome="Pallino",
+                                Azienda="PincoPanco",
+                                Indirizzo="Via della boccia, 188, 52100 Arezzo",
+                                Telefono="987654321",
+                                Email="Pimpa@pallino.it",
+                                Note="Vestito a puah",
+                                },
+                 new Contatto() {
+                                Id = 3,
+                                Nome="Peppa",
+                                Cognome="Pig",
+                                Azienda="Peppa Industries",
+                                Indirizzo="Via del Fognone, 69, 52100 Arezzo",
+                                Telefono="7531594862",
+                                Email="Peppa@Pig.it",
+                                Note="Amante delle Pozzanghere",
+                                }
+               };
+
+
+}

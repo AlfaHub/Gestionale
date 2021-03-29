@@ -1,0 +1,67 @@
+﻿<h3>Profilo: @DettaglioElementoContatto.Nome</h3>
+
+
+
+<EditForm Model="@DettaglioElementoContatto"
+          OnValidSubmit="@(e => OnSalvaContatto.InvokeAsync(DettaglioElementoContatto))">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Nome">Nome:</label>
+        <InputText id="Nome" @bind-Value="DettaglioElementoContatto.Nome" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Cognome">Cognome:</label>
+        <InputText id="Cognome" @bind-Value="DettaglioElementoContatto.Cognome" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Azienda">Azienda:</label>
+        <InputText id="Azienda" @bind-Value="DettaglioElementoContatto.Azienda" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Indirizzo">Indirizzo:</label>
+        <InputTextArea id="Indirizzo" @bind-Value="DettaglioElementoContatto.Indirizzo" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Indirizzo)" />
+    </div>
+
+    <div class="form-group">
+        <label for="Telefono">Telefono:</label>
+        <InputText id="Telefono" @bind-Value="DettaglioElementoContatto.Telefono" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <InputText id="Email" @bind-Value="DettaglioElementoContatto.Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Note">Note:</label>
+        <InputTextArea id="Archiviato" @bind-Value="DettaglioElementoContatto.Note" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salva</button>
+    <button type="button" class="btn btn-warning" @onclick="OnAnnullaContatto">Annulla</button>
+
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public Profilo DettaglioElementoContatto { get; set; }
+
+    [Parameter]
+    public EventCallback<Profilo> OnSalvaContatto { get; set; }
+
+    [Parameter]
+    public EventCallback OnAnnullaContatto { get; set; }
+
+    
+
+
+
+}
+
