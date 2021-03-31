@@ -1,16 +1,20 @@
-﻿<h2>Progetto: @DettaglioParte.NomeProgetto</h2>
+﻿<h5>Progetto: @DettaglioParte.NomeProgetto</h5>
 
 <EditForm Model="@DettaglioParte"
           OnValidSubmit="@(e => OnSalvaProgetto.InvokeAsync(DettaglioParte))">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
 
     <div class="form-group">
-        <label for="nome">Nome:</label>
-        <InputText id="nome" @bind-Value="DettaglioParte.NomeProgetto" class="form-control" />
+        <label for="nomeProgetto">Nome progetto:</label>
+        <InputText id="nomeProgetto" @bind-Value="DettaglioParte.NomeProgetto" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioParte.NomeProgetto)" />
     </div>
 
     <div class="form-group">
         <label for="cliente">Cliente:</label>
         <InputText id="cliente" @bind-Value="DettaglioParte.Cliente" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioParte.Cliente)" />
     </div>
 
     <div class="form-group">
@@ -24,17 +28,20 @@
     </div>
 
     <div class="form-group">
-        <label for="DataInizio">DataInizio:</label>
+        <label for="DataInizio">Data Inizio:</label>
         <InputDate id="DataInizio" @bind-Value="DettaglioParte.DataInizio" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioParte.DataInizio)" />
     </div>
 
+    
     <div class="form-group">
-        <label for="DataScadenza">DataScadenza:</label>
+        <label for="DataScadenza">Data Scadenza:</label>
         <InputDate id="DataScadenza" @bind-Value="DettaglioParte.DataScadenza" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioParte.DataScadenza)" />
     </div>
 
     <div class="form-group">
-        <label for="DataFine">DataFine:</label>
+        <label for="DataFine">Data Fine:</label>
         <InputDate id="DataFine" @bind-Value="DettaglioParte.DataFine" class="form-control" />
     </div>
     <div class="form-group">
@@ -43,7 +50,7 @@
     </div>
 
     <div class="form-group">
-        <label for="Variazione">Variazione:</label>
+        <label for="Variazione">Variazione di prezzo:</label>
         <InputNumber id="Variazione" @bind-Value="DettaglioParte.Variazione" class="form-control" />
     </div>
 

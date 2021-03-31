@@ -1,4 +1,4 @@
-﻿@*<h2>Appuntamento: @DettaglioElemento.Nome</h2>*@
+﻿
 <h4>@Titolo</h4>
 <div align="right">
     <button class="btn btn-outline-primary mb-4"
@@ -10,11 +10,11 @@
     <table class="table">
         <thead class="table-success">
             <tr>
-                <th><font size=2>Id</font></th>
+                <th><font size=2>Data</font></th>
+                <th><font size=2>Ora</font></th>
                 <th><font size=2>Nome</font></th>
                 <th><font size=2>Luogo</font></th>
                 <th><font size=2>Descrizione</font></th>
-                <th><font size=2>Data</font></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -22,11 +22,11 @@
         @foreach (var evento in ListaElementi)
         {
             <tr>
-                <td><font size=2>@evento.Id</font></td>
+                <td><font size=2>@evento.Data</font></td>
+                <td><font size=2>@evento.Ora</font></td>
                 <td><font size=2>@evento.Nome</font></td>
                 <td><font size=2>@evento.Localita</font></td>
-                 <td><font size=2>@evento.Descrizione</font></td>
-                <td><font size=2>@evento.Data</font></td>
+                <td><font size=2>@evento.Descrizione</font></td>
                 <th>
                     <button class="btn btn-outline-info"
                             @onclick="e => OnModifica.InvokeAsync(evento)">
@@ -60,10 +60,6 @@
         [Parameter]
         public EventCallback<ElementoListaEventi> OnElimina { get; set; }
 
-
-
-        //[Parameter]
-        //public Evento DettaglioElemento { get; set; }
 
 
     }

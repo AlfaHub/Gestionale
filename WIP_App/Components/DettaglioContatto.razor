@@ -1,25 +1,29 @@
-﻿<h3>Profilo: @DettaglioElementoContatto.Nome</h3>
+﻿
+<h5>Contatto: @DettaglioElementoContatto.Nome</h5>
 
 
 
 <EditForm Model="@DettaglioElementoContatto"
           OnValidSubmit="@(e => OnSalvaContatto.InvokeAsync(DettaglioElementoContatto))">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+    @*<ValidationSummary />*@
 
     <div class="form-group">
         <label for="Nome">Nome:</label>
         <InputText id="Nome" @bind-Value="DettaglioElementoContatto.Nome" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Nome)" />
     </div>
 
     <div class="form-group">
         <label for="Cognome">Cognome:</label>
         <InputText id="Cognome" @bind-Value="DettaglioElementoContatto.Cognome" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Cognome)" />
     </div>
 
     <div class="form-group">
         <label for="Azienda">Azienda:</label>
         <InputText id="Azienda" @bind-Value="DettaglioElementoContatto.Azienda" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Azienda)" />
     </div>
 
     <div class="form-group">
@@ -31,16 +35,19 @@
     <div class="form-group">
         <label for="Telefono">Telefono:</label>
         <InputText id="Telefono" @bind-Value="DettaglioElementoContatto.Telefono" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Telefono)" />
     </div>
 
     <div class="form-group">
         <label for="Email">Email:</label>
         <InputText id="Email" @bind-Value="DettaglioElementoContatto.Email" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Email)" />
     </div>
 
     <div class="form-group">
         <label for="Note">Note:</label>
         <InputTextArea id="Archiviato" @bind-Value="DettaglioElementoContatto.Note" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElementoContatto.Note)" />
     </div>
 
     <button type="submit" class="btn btn-primary">Salva</button>
@@ -59,7 +66,7 @@
     [Parameter]
     public EventCallback OnAnnullaContatto { get; set; }
 
-    
+
 
 
 

@@ -1,16 +1,32 @@
-﻿<h2>Appuntamento: @DettaglioElemento.Nome</h2>
+﻿<h5>Appuntamento: @DettaglioElemento.Nome</h5>
 
 <EditForm Model="@DettaglioElemento"
           OnValidSubmit="@(e => OnSalva.InvokeAsync(DettaglioElemento))">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+
+    <div class="form-group">
+        <label for="data">Data:</label>
+        <InputDate id="data" @bind-Value="DettaglioElemento.Data" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElemento.Data)" />
+    </div>
+
+    <div class="form-group">
+        <label for="ora">Ora:</label>
+        <InputDate id="ora" @bind-Value="DettaglioElemento.Ora" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElemento.Ora)" />
+    </div>
 
     <div class="form-group">
         <label for="nome">Nome:</label>
         <InputText id="nome" @bind-Value="DettaglioElemento.Nome" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElemento.Nome)" />
     </div>
 
     <div class="form-group">
-        <label for="localita">Località:</label>
+        <label for="localita">Luogo:</label>
         <InputText id="localita" @bind-Value="DettaglioElemento.Localita" class="form-control" />
+        <ValidationMessage For="@(() => DettaglioElemento.Localita)" />
     </div>
 
     <div class="form-group">
@@ -22,10 +38,7 @@
         <label for="note">Note:</label>
         <InputTextArea id="note" @bind-Value="DettaglioElemento.Note" class="form-control" />
     </div>
-    <div class="form-group">
-        <label for="data">Data:</label>
-        <InputDate id="data" @bind-Value="DettaglioElemento.Data" class="form-control" />
-    </div>
+
 
     <button type="submit" class="btn btn-primary">Salva</button>
     <button type="button" class="btn btn-warning" @onclick="OnAnnulla">Annulla</button>
