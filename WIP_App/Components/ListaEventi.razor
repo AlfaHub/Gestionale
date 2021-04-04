@@ -1,11 +1,11 @@
 ﻿
-<h4>@Titolo</h4>
-<div align="right">
+<h5>@Titolo</h5>
+@*<div align="right">
     <button class="btn btn-outline-primary mb-4"
             @onclick="OnCrea">
         Nuovo Appuntamento
     </button>
-</div>
+</div>*@
 
     <table class="table">
         <thead class="table-success">
@@ -16,7 +16,12 @@
                 <th><font size=2>Luogo</font></th>
                 <th><font size=2>Descrizione</font></th>
                 <th></th>
-                <th></th>
+                <th>
+                    <button class="btn btn-primary "
+                            @onclick="OnCrea">
+                        Nuovo 
+                    </button>
+                </th>
             </tr>
         </thead>
         @foreach (var evento in ListaElementi)

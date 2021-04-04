@@ -1,44 +1,67 @@
 ﻿@using System.IO
-@*@using Newtonsoft.Json*@
-
-
-    <div align="right">
-        <button class="btn btn-outline-primary"
-                @onclick="OnCreaProgetto">
-            Nuovo progetto
-        </button>
+<div>
+    <div style="float:left" width=100px>
+        <h5>Progetti</h5>
     </div>
+    <div style="float:right">
+        <form>
+            <label for="ricerca">Ricerca progetto:</label>
+            <input type="search" id="ricerca" name="ricerca" placeholder="nome progetto...">
+            <input type="submit" @onclick="OnRicercaProgetto">
+        </form>
+
+    </div>
+</div>
 
 
-    <h5>PROGETTI ATTIVI</h5>
 
+<table id="TabElementiProgetto" class="table table-striped table-active">
+    <thead class="table-primary">
+        <tr>
 
-    <table class="table table-striped table-active">
-        <thead class="table-primary">
-            <tr>
+            <th><font size=2>Progetto</font></th>
+            <th><font size=2>Cliente</font></th>
+            <th><font size=2>Descrizione</font></th>
+            <th><font size=2>Scadenza</font></th>
+            <th>
+                <font size=2>
+                    Dettagli
+                </font>
+            </th>
+            <th><font size=2>Pagato</font></th>
+            <th @onclick="e => OnAlternaArchiviato()">
+                <button class="btn btn-secondary" aria-hidden="true">
+                    <font size=2><b>Archiviato</b></font>
+                </button>
+            </th>
 
-                <th><font size=2>Nome progetto</font></th>
-                <th><font size=2>Cliente</font></th>
-                <th><font size=2>Descrizione</font></th>
+            <th>
 
-                <th><font size=2>Data scadenza</font></th>
-                <th><font size=2>Pagato</font></th>
-                <th><font size=2>Archiviato</font></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        @foreach (var progetto in ListaElementiProgetto)
-            if (progetto.Archiviato == false)
+                <button class="btn btn-primary "
+                        @onclick="OnCreaProgetto">
+                    <font size=2>Nuovo</font>
+                </button>
+
+            </th>
+
+        </tr>
+    </thead>
+    @foreach (var progetto in ListaElementiProgetto)
+    {
+        @if (!alternaArchiviato)
+        {
+            @if (!progetto.Archiviato)
             {
                 <tr>
 
                     <td><font size=2>@progetto.NomeProgetto</font></td>
                     <td><font size=2>@progetto.Cliente</font></td>
-                    <td><font size=2>@progetto.Descrizione</font></td>
+                    <td width=100px><font size=2>@progetto.Descrizione</font></td>
 
                     <td><font size=2>@progetto.DataScadenza</font></td>
-
+                    <td align="center" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
+                        <span class="oi oi-magnifying-glass" aria-hihhen="true" title="si"></span>
+                    </td>
                     <td align="center" @onclick="e => OnPagato(progetto)">
                         @if (progetto.Pagato)
                         {
@@ -60,139 +83,140 @@
                             <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
                         }
                     </td>
-                    <th><font size=2>
-                        <button class="btn btn-outline-info"
-                                @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-                            Dettagli
-                        </button></font>
-                    </th>
-                    <th><font size=2>
-                        <button class="btn btn-outline-danger"
+                    
+                    <th>
+
+                        <button class="btn btn-outline-danger" margin="2"
                                 @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
-                            Elimina
-                        </button></font>
+                            <font size=2> Elimina</font>
+                        </button>
+
+
                     </th>
 
 
                 </tr>
             }
-
-    </table>
-
-    <h5>PROGETTI ARCHIVIATI</h5>
-    <table class="table table-striped table-active">
-        <thead class="table-secondary">
-            <tr>
-
-                <th><font size=2>Nome progetto</font></th>
-                <th><font size=2>Cliente</font></th>
-                <th><font size=2>Descrizione</font></th>
-                <th><font size=2>Data scadenza</font></th>
-                <th><font size=2>Pagato</font></th>
-                <th><font size=2>Archiviato</font></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        @foreach (var progetto in ListaElementiProgetto)
-            if (progetto.Archiviato == true)
+        }
+        else
+        {
+            if (progetto.Archiviato)
             {
-                <tr>
+<tr>
 
-                    <td><font size=2>@progetto.NomeProgetto</font></td>
-                    <td><font size=2>@progetto.Cliente</font></td>
-                    <td><font size=2>@progetto.Descrizione</font></td>
+    <td><font size=2>@progetto.NomeProgetto</font></td>
+    <td><font size=2>@progetto.Cliente</font></td>
+    <td width=100px><font size=2>@progetto.Descrizione</font></td>
 
-                    <td><font size=2>@progetto.DataScadenza</font></td>
+    <td><font size=2>@progetto.DataScadenza</font></td>
+    <td align="center" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
+        <span class="oi oi-magnifying-glass" aria-hihhen="true" title="si"></span>
+    </td>
+    <td align="center" @onclick="e => OnPagato(progetto)">
+        @if (progetto.Pagato)
+        {
+            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
+        }
+        else
+        {
+            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+        }
+    </td>
 
-                    <td align="center" @onclick="e => OnPagato(progetto)">
-                        @if (progetto.Pagato)
-                        {
-                            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
-                        }
-                        else
-                        {
-                            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
-                        }
-                    </td>
+    <td align="center" @onclick="e => OnArchiviato(progetto)">
+        @if (progetto.Archiviato)
+        {
+            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
+        }
+        else
+        {
+            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+        }
+    </td>
+   
+    <th>
 
-                    <td align="center" @onclick="e => OnArchiviato(progetto)">
-                        @if (progetto.Archiviato)
-                        {
-                            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
-                        }
-                        else
-                        {
-                            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
-                        }
-                    </td>
-                    <th><font size=2>
-                        <button class="btn btn-outline-info"
-                                @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-                            Dettagli
-                        </button></font>
-                    </th>
-                    <th><font size=2>
-                        <button class="btn btn-outline-danger"
-                                @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
-                            Elimina
-                        </button></font>
-                    </th>
+        <button class="btn btn-outline-danger" btn-margin=3px btn-padding=0
+                @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
+            Elimina
+        </button>
+
+    </th>
 
 
-                </tr>
+</tr>
             }
-
-    </table>
-
-
-
-    @code {
-
-        [Parameter]
-        public string Titolo { get; set; }
-        [Parameter]
-        public string title { get; set; }
-        [Parameter]
-        public string Pagato { get; set; }
-        [Parameter]
-        public string Archiviato { get; set; }
-
-        [Parameter]
-        public List<ElementoListaProgetti> ListaElementiProgetto { get; set; }
-
-        [Parameter]
-        public EventCallback OnCreaProgetto { get; set; }
-
-        [Parameter]
-        public EventCallback<ElementoListaProgetti> OnModificaProgetto { get; set; }
-
-        [Parameter]
-        public EventCallback<ElementoListaProgetti> OnEliminaProgetto { get; set; }
-
-        [Parameter]
-        public Prospetto DettaglioProgetto { get; set; }
-
-
-
-
-
-        public void OnPagato(ElementoListaProgetti cliccato)
-        {
-            cliccato.Pagato = !cliccato.Pagato;
-            //File.WriteAllText("archivio.json", JsonConvert.SerializeObject(this.lista));
         }
+    }
 
-        public void OnArchiviato(ElementoListaProgetti cliccato)
-        {
-            cliccato.Archiviato = !cliccato.Archiviato;
-            //File.WriteAllText("archivio.json", JsonConvert.SerializeObject(this.lista));
-        }
+</table>
 
 
 
 
+@code {
 
+    [Parameter]
+    public string Titolo { get; set; }
+    [Parameter]
+    public string title { get; set; }
+    [Parameter]
+    public string Pagato { get; set; }
+    [Parameter]
+    public string Archiviato { get; set; }
+
+
+
+    [Parameter]
+    public List<ElementoListaProgetti> ListaElementiProgetto { get; set; }
+
+    [Parameter]
+    public EventCallback OnCreaProgetto { get; set; }
+
+    [Parameter]
+    public EventCallback<ElementoListaProgetti> OnModificaProgetto { get; set; }
+
+    [Parameter]
+    public EventCallback<ElementoListaProgetti> OnEliminaProgetto { get; set; }
+
+    [Parameter]
+    public Prospetto DettaglioProgetto { get; set; }
+
+    //Ricerca progetti
+    [Parameter]
+    public string NomeProgetto { get; set; }
+
+    [Parameter]
+    public string ricerca { get; set; }
+
+    [Parameter]
+    public EventCallback OnRicercaProgetto { get; set; }
+
+    //Alternanza programmi attivi e archiviati
+    [Parameter]
+    public Boolean alternaArchiviato { get; set; }
+
+
+
+    public void OnPagato(ElementoListaProgetti cliccato)
+    {
+        cliccato.Pagato = !cliccato.Pagato;
+        //File.WriteAllText("archivio.json", JsonConvert.SerializeObject(this.lista));
+    }
+
+    public void OnArchiviato(ElementoListaProgetti cliccato)
+    {
+        cliccato.Archiviato = !cliccato.Archiviato;
+        //File.WriteAllText("archivio.json", JsonConvert.SerializeObject(this.lista));
+    }
+
+    public void OnAlternaArchiviato()
+    {
+        alternaArchiviato = !alternaArchiviato;
+
+    }
+
+    
 
 
 

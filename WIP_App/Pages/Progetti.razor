@@ -1,22 +1,22 @@
-﻿
-@page "/progetti"
-
+﻿@page "/progetti"
 
 @if (ProgettoCorrente == null)
 {
-    <ListaProgetti ListaElementiProgetto="ListaProgetti" 
+    <ListaProgetti ListaElementiProgetto="ListaProgetti"
                    OnEliminaProgetto="EliminaProgetto"
-                   OnCreaProgetto="CreaProgetto" 
-                   OnModificaProgetto="ModificaProgetto" 
-                   Pagato=false
-                   />
+                   OnCreaProgetto="CreaProgetto"
+                   OnModificaProgetto="ModificaProgetto"
+                   OnRicercaProgetto="RicercaProgetto" />
+
 }
 else
 {
-    <DettaglioProgetto DettaglioParte ="ProgettoCorrente"
-                     OnSalvaProgetto="SalvaProgetto" 
-					 OnAnnullaProgetto="AnnullaOperazione" />
+    <DettaglioProgetto DettaglioParte="ProgettoCorrente"
+                       OnSalvaProgetto="SalvaProgetto"
+                       OnAnnullaProgetto="AnnullaOperazione" />
 }
+
+
 
 @code{
 
@@ -28,6 +28,9 @@ else
     public void CreaProgetto()
     {
         this.ProgettoCorrente = new Prospetto();
+        this.ProgettoCorrente.DataInizio = DateTime.Now;
+        this.ProgettoCorrente.DataScadenza = DateTime.Now;
+        this.ProgettoCorrente.DataFine = DateTime.Now;
     }
 
 
@@ -104,15 +107,44 @@ else
     }
 
 
+    public void RicercaProgetto()
+    {
+
+        //if (progetto.NomeProgetto==ricerca)
+        //{
+
+
+        //}
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     List<ElementoListaProgetti> ListaProgetti { get; set; }
-       = new List<ElementoListaProgetti>
-           {
+   = new List<ElementoListaProgetti>
+       {
                 new ElementoListaProgetti()
                 { Id = 1,
-                  NomeProgetto = "Gestionale lavori in corso",
+                  NomeProgetto = "WIP-App",
                   Cliente = "Claudia Boschi",
-                  Descrizione = " gestione archiviati, pagati, scadenze, prezzo ",
+                  Descrizione = "gestionale progetti",
                   Note = "blazor wasm",
                   DataInizio = new DateTime(2021, 2, 22),
                   DataScadenza = new DateTime(2021, 4, 21),
@@ -125,16 +157,16 @@ else
 
                 new ElementoListaProgetti()
                 { Id = 2,
-                  NomeProgetto = "Gestionale appuntamenti",
+                  NomeProgetto = "APP-App",
                   Cliente = "Daniele Simoncini",
-                  Descrizione = "gestione appuntamenti CRUD",
+                  Descrizione = "gestionale appuntamenti ",
                   Note = "blazor wasm",
                   DataInizio = new DateTime(2021, 2, 21),
                   DataScadenza = new DateTime(2021, 4, 21),
                   DataFine = new DateTime(2030, 1, 1),
                   Prezzo = 100,
                   Variazione = -50,
-                  Pagato =false,
+                  Pagato =true,
                   Archiviato = false
                 },
 
@@ -142,11 +174,11 @@ else
                 {
                   Id =3,
 
-                  NomeProgetto = "Rubrica",
+                  NomeProgetto = "Rub-App",
 
                   Cliente = "Antonella Marinelli",
 
-                  Descrizione = "Gestionale contatti",
+                  Descrizione = "gestionale contatti",
 
                   Note = "blazor wasm",
 
@@ -162,9 +194,109 @@ else
 
                   Pagato = false,
 
+                  Archiviato = false
+                },
+
+                new ElementoListaProgetti()
+                { Id = 4,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 5,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 6,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 7,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 8,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 9,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 10,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
                   Archiviato = true
                 }
-               };
+
+                                   };
 
 
 
@@ -172,10 +304,10 @@ else
 }
 
 
-							
-	 
-										   
-	 
+
+
+
+
 
 
 

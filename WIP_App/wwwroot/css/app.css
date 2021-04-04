@@ -58,6 +58,11 @@ app {
         font-size: 1.1rem;
     }
 
+    .sidebar {
+        width: 100rem;
+    }
+
+
     .sidebar .oi {
         width: 2rem;
         font-size: 1.1rem;
