@@ -1,7 +1,7 @@
 ﻿
 
 <div>
-    <div style= "float:left"  width=100px height=100px >
+    <div style="float:left" width=100px height=100px>
         <h5>Rubrica</h5>
     </div>
     <div style="float:right">
@@ -11,6 +11,7 @@
             <input type="submit">
         </form>
     </div>
+    @* necessario per <div style="float:right"e"float:left">  *@
     <div style=”clear:both;”></div>
 
 
@@ -25,17 +26,16 @@
 <table class="table table-striped table-active ">
     <thead class="table-warning">
         <tr>
-            <th><font size=2>Id</font></th>
             <th><font size=2>Nome</font></th>
-            <th><font size=2>Cognome</font></th>
+            @*<th><font size=2>Cognome</font></th>*@
             <th><font size=2>Azienda</font></th>
-            <th><font size=2>Indirizzo</font></th>
+            <th style="min-width:150px"><font size=2>Indirizzo</font></th>
             <th><font size=2>Telefono</font></th>
             <th><font size=2>E-mail</font></th>
             <th><font size=2>Note</font></th>
-            <th></th>
+            <th><font size=2>Modifica</font></th>
             <th>
-                <button class="btn btn-primary"
+                <button class="btn btn-sm btn-primary"
                         @onclick="OnCreaContatto">
                     Nuovo
                 </button>
@@ -46,28 +46,24 @@
     @foreach (var contatto in ListaElementiContatto)
 
     {
-        <tr>
-            <td><font size=2>@contatto.Id</font></td>
-            <td><font size=2>@contatto.Nome</font></td>
-            <td><font size=2>@contatto.Cognome</font></td>
-            <td><font size=2>@contatto.Azienda</font></td>
-            <td><font size=2>@contatto.Indirizzo</font></td>
-            <td><font size=2>@contatto.Telefono</font></td>
-            <td><font size=2>@contatto.Email</font></td>
-            <td><font size=2>@contatto.Note</font></td>
-            <th>
-                <button class="btn btn-outline-warning"
-                        @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
-                    Modifica
-                </button>
-            </th>
-            <th>
-                <button class="btn btn-outline-danger"
-                        @onclick="e => OnEliminaContatto.InvokeAsync (contatto)">
-                    Elimina
-                </button>
-            </th>
-        </tr>
+<tr>
+    <td><font size=2>@contatto.Nome @contatto.Cognome</font></td>
+    @*<td><font size=2>@contatto.Cognome</font></td>*@
+    <td><font size=2>@contatto.Azienda</font></td>
+    <td><font size=2>@contatto.Indirizzo</font></td>
+    <td><font size=2>@contatto.Telefono</font></td>
+    <td><font size=2>@contatto.Email</font></td>
+    <td><font size=2>@contatto.Note</font></td>
+    <td align="center" @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
+        <span style="cursor: pointer" class="oi oi-pencil " aria-hihhen="true" title="Modifica"></span>
+    </td>
+    <th>
+        <button class="btn btn-sm btn-outline-danger"
+                @onclick="e => OnEliminaContatto.InvokeAsync (contatto)">
+            Elimina
+        </button>
+    </th>
+</tr>
     }
 </table>
 

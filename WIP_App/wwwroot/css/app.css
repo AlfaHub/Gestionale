@@ -103,7 +103,8 @@ app {
             }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 0.5rem;
+    margin: 0.5rem;
 }
 
 .navbar-toggler {
@@ -173,8 +174,10 @@ app {
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 0.5rem !important;
+        
+        padding-right: 0.5rem !important;
+        
     }
 
     .navbar-toggler {

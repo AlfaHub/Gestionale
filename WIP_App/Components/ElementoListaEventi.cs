@@ -14,7 +14,7 @@ namespace WIP_App.Components
         public string Descrizione { get; set; }
         public string Note { get; set; }
         public DateTime Data { get; set; }
-        public DateTime Ora { get; set; }
+        public string Ora { get; set; }
 
     }
 }

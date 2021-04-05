@@ -29,8 +29,8 @@ else
     {
         this.ProgettoCorrente = new Prospetto();
         this.ProgettoCorrente.DataInizio = DateTime.Now;
-        this.ProgettoCorrente.DataScadenza = DateTime.Now;
-        this.ProgettoCorrente.DataFine = DateTime.Now;
+        this.ProgettoCorrente.DataScadenza = DateTime.MaxValue;
+        this.ProgettoCorrente.DataFine = DateTime.MaxValue;
     }
 
 
@@ -294,6 +294,62 @@ else
                   Variazione = 99,
                   Pagato =true,
                   Archiviato = true
+                },
+                new ElementoListaProgetti()
+                { Id = 11,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =false,
+                  Archiviato = false
+                },
+                new ElementoListaProgetti()
+                { Id = 12,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =false,
+                  Archiviato = false
+                },
+                new ElementoListaProgetti()
+                { Id = 13,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =true,
+                  Archiviato = false
+                },
+                new ElementoListaProgetti()
+                { Id = 14,
+                  NomeProgetto = "Nome-App",
+                  Cliente = "Cliente",
+                  Descrizione = "IoT ",
+                  Note = "blazor wasm",
+                  DataInizio = new DateTime(2021, 2, 21),
+                  DataScadenza = new DateTime(2021, 4, 21),
+                  DataFine = new DateTime(2030, 1, 1),
+                  Prezzo = 999,
+                  Variazione = 99,
+                  Pagato =false,
+                  Archiviato = false
                 }
 
                                    };

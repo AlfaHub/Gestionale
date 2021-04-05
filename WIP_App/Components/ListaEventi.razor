@@ -15,9 +15,9 @@
                 <th><font size=2>Nome</font></th>
                 <th><font size=2>Luogo</font></th>
                 <th><font size=2>Descrizione</font></th>
-                <th></th>
+                <th><font size=2>Dettagli</font></th>
                 <th>
-                    <button class="btn btn-primary "
+                    <button class="btn btn-sm btn-primary "
                             @onclick="OnCrea">
                         Nuovo 
                     </button>
@@ -26,26 +26,24 @@
         </thead>
         @foreach (var evento in ListaElementi)
         {
-            <tr>
-                <td><font size=2>@evento.Data</font></td>
-                <td><font size=2>@evento.Ora</font></td>
-                <td><font size=2>@evento.Nome</font></td>
-                <td><font size=2>@evento.Localita</font></td>
-                <td><font size=2>@evento.Descrizione</font></td>
-                <th>
-                    <button class="btn btn-outline-info"
-                            @onclick="e => OnModifica.InvokeAsync(evento)">
-                        Dettagli
-                    </button>
-                </th>
-                <th>
-                    <button class="btn btn-outline-danger"
-                            @onclick="e => OnElimina.InvokeAsync(evento)">
-                        Elimina
-                    </button>
-                </th>
+    <tr>
+        <td><font size=2>@evento.Data</font></td>
+        <td><font size=2>@evento.Ora</font></td>
+        <td><font size=2>@evento.Nome</font></td>
+        <td><font size=2>@evento.Localita</font></td>
+        <td><font size=2>@evento.Descrizione</font></td>
+        <td align="center" @onclick="e => OnModifica.InvokeAsync(evento)">
+                <span style = "cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" title="Dettaglio e modifica" > </span >
+            
+        </td>
+        <th>
+            <button class="btn btn-sm  btn-outline-danger"
+                    @onclick="e => OnElimina.InvokeAsync(evento)">
+                Elimina
+            </button>
+        </th>
 
-            </tr>
+    </tr>
         }
     </table>
     @code {
@@ -64,7 +62,6 @@
 
         [Parameter]
         public EventCallback<ElementoListaEventi> OnElimina { get; set; }
-
 
 
     }

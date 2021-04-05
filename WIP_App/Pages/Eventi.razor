@@ -12,16 +12,22 @@ else
                      OnSalva="SalvaEvento" OnAnnulla="AnnullaOperazione" />
 }
 
-@code {
 
+
+@code {
+    [Parameter]
+    public string timeReset { get; set; } = "00:00";
 
     public Evento EventoCorrente { get; set; }
+
 
 
 
     public void CreaEvento()
     {
         this.EventoCorrente = new Evento();
+        this.EventoCorrente.Data = DateTime.Now;
+        this.EventoCorrente.Ora = timeReset;
     }
 
 
@@ -38,12 +44,13 @@ else
         this.EventoCorrente = new Evento()
         {
             Id = evento.Id,
+            Data = evento.Data,
+            Ora = evento.Ora,
             Nome = evento.Nome,
             Localita = evento.Localita,
             Descrizione = evento.Descrizione,
-            Note = evento.Note,
-            Data = evento.Data,
-            Ora = evento.Ora
+            Note = evento.Note
+
         };
     }
 
@@ -54,24 +61,26 @@ else
             this.ListaEventi.Add(new ElementoListaEventi()
             {
                 Id = this.ListaEventi.Count() > 0 ? this.ListaEventi.Max(x => x.Id) + 1 : 1,
+                Data = evento.Data,
+                Ora = evento.Ora,
                 Nome = evento.Nome,
                 Localita = evento.Localita,
                 Descrizione = evento.Descrizione,
-                Note = evento.Note,
-                Data = evento.Data,
-                Ora = evento.Ora
+                Note = evento.Note
+
 
             });
         }
         else
         {
             var eventoDaModificare = this.ListaEventi.Single(x => x.Id == evento.Id);
+            eventoDaModificare.Data = evento.Data;
+            eventoDaModificare.Ora = evento.Ora;
             eventoDaModificare.Nome = evento.Nome;
             eventoDaModificare.Localita = evento.Localita;
             eventoDaModificare.Descrizione = evento.Descrizione;
             eventoDaModificare.Note = evento.Note;
-            eventoDaModificare.Data = evento.Data;
-            eventoDaModificare.Ora = evento.Ora;
+
 
         }
         this.EventoCorrente = null;
@@ -96,34 +105,105 @@ else
            {
                 new ElementoListaEventi()
                 { Id = 1,
+                    Data = new DateTime(2021, 2,22),
+                    Ora = "10:30",
                     Nome="Assoservizi",
                     Localita="Arezzo",
                     Descrizione="Inizio stage",
-                    Note=" Ritiro Registro presenze",
-                    Data = new DateTime(2021, 2,22),
-                    Ora = new DateTime(2021,10,10)
+                    Note=" Ritiro Registro presenze"
+
                 },
                 new ElementoListaEventi()
                 { Id = 2,
+                    Data = new DateTime(2021, 4, 21),
+                    Ora = "11:30",
                     Nome="Daniele Simoncini",
                     Localita="San Giovanni Valdarno",
                     Descrizione="Fine stage",
-                    Note="Firmare Registro presenze",
-                    Data = new DateTime(2021, 4, 21),
-                    Ora = new DateTime(2021,10,10)
+                    Note="Firmare Registro presenze"
+
                 },
                 new ElementoListaEventi()
                 { Id = 3,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "11:00",
                     Nome="Marinella Guerra",
                     Localita="Arezzo",
                     Descrizione="Esami",
-                    Note="Consegnare registro presenze",
+                    Note="Consegnare registro presenze"
+
+                },
+
+                new ElementoListaEventi()
+                { Id = 4,
                     Data = new DateTime(2021, 5, 20),
-                    Ora = new DateTime(2021,10,10)
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },
+                new ElementoListaEventi()
+                { Id = 5,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },
+                new ElementoListaEventi()
+                { Id = 6,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },new ElementoListaEventi()
+                { Id = 7,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },new ElementoListaEventi()
+                { Id = 8,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },
+                new ElementoListaEventi()
+                { Id = 9,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
+                },new ElementoListaEventi()
+                { Id = 10,
+                    Data = new DateTime(2021, 5, 20),
+                    Ora = "12:00",
+                    Nome="Azienda X",
+                    Localita="Arezzo",
+                    Descrizione="Colloquio",
+                    Note="portare CV"
+
                 }
                };
 
 
 
 
-        }
+}

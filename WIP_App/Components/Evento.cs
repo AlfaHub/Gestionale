@@ -26,9 +26,10 @@ namespace WIP_App.Components
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Il formato della data non è valido")]
         public DateTime Data { get; set; }
-        
-        [DataType(DataType.Time)]
-        //[DataTime(ErrorMessage = "Il formato dell'ora non è valido")]
-        public DateTime Ora { get; set; }
+
+        [Required(ErrorMessage = "Ora appuntamento obbligatoria")]
+        [StringLength(5, ErrorMessage = "La lunghezza massima {1} caratteri")]
+        public string Ora { get; set; }
     }
+
 }

@@ -5,7 +5,7 @@
     </div>
     <div style="float:right">
         <form>
-            <label for="ricerca">Ricerca progetto:</label>
+            <label for="ricerca">Ricerca:</label>
             <input type="search" id="ricerca" name="ricerca" placeholder="nome progetto...">
             <input type="submit" @onclick="OnRicercaProgetto">
         </form>
@@ -21,7 +21,8 @@
 
             <th><font size=2>Progetto</font></th>
             <th><font size=2>Cliente</font></th>
-            <th><font size=2>Descrizione</font></th>
+            <th style="min-width:140px"><font size=2>Descrizione</font></th>
+            <th><font size=2>Data inizio</font></th>
             <th><font size=2>Scadenza</font></th>
             <th>
                 <font size=2>
@@ -30,14 +31,14 @@
             </th>
             <th><font size=2>Pagato</font></th>
             <th @onclick="e => OnAlternaArchiviato()">
-                <button class="btn btn-secondary" aria-hidden="true">
+                <button class="btn btn-sm btn-toolbar" aria-hidden="true">
                     <font size=2><b>Archiviato</b></font>
                 </button>
             </th>
 
             <th>
 
-                <button class="btn btn-primary "
+                <button class="btn btn-sm btn-primary "
                         @onclick="OnCreaProgetto">
                     <font size=2>Nuovo</font>
                 </button>
@@ -48,99 +49,103 @@
     </thead>
     @foreach (var progetto in ListaElementiProgetto)
     {
+
+
+
         @if (!alternaArchiviato)
         {
             @if (!progetto.Archiviato)
-            {
-                <tr>
-
-                    <td><font size=2>@progetto.NomeProgetto</font></td>
-                    <td><font size=2>@progetto.Cliente</font></td>
-                    <td width=100px><font size=2>@progetto.Descrizione</font></td>
-
-                    <td><font size=2>@progetto.DataScadenza</font></td>
-                    <td align="center" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-                        <span class="oi oi-magnifying-glass" aria-hihhen="true" title="si"></span>
-                    </td>
-                    <td align="center" @onclick="e => OnPagato(progetto)">
-                        @if (progetto.Pagato)
-                        {
-                            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
-                        }
-                        else
-                        {
-                            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
-                        }
-                    </td>
-
-                    <td align="center" @onclick="e => OnArchiviato(progetto)">
-                        @if (progetto.Archiviato)
-                        {
-                            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
-                        }
-                        else
-                        {
-                            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
-                        }
-                    </td>
-                    
-                    <th>
-
-                        <button class="btn btn-outline-danger" margin="2"
-                                @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
-                            <font size=2> Elimina</font>
-                        </button>
-
-
-                    </th>
-
-
-                </tr>
-            }
-        }
-        else
-        {
-            if (progetto.Archiviato)
             {
 <tr>
 
     <td><font size=2>@progetto.NomeProgetto</font></td>
     <td><font size=2>@progetto.Cliente</font></td>
-    <td width=100px><font size=2>@progetto.Descrizione</font></td>
-
+    <td><font size=2>@progetto.Descrizione</font></td>
+    <td><font size=2>@progetto.DataInizio</font></td>
     <td><font size=2>@progetto.DataScadenza</font></td>
     <td align="center" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-        <span class="oi oi-magnifying-glass" aria-hihhen="true" title="si"></span>
+        <span style = "cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
     </td>
     <td align="center" @onclick="e => OnPagato(progetto)">
         @if (progetto.Pagato)
         {
-            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
+            <span style = "cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
         }
         else
         {
-            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+            <span style = "cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
         }
     </td>
 
     <td align="center" @onclick="e => OnArchiviato(progetto)">
         @if (progetto.Archiviato)
         {
-            <span class="oi oi-check" aria-hihhen="true" title="si"></span>
+            <span style = "cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
         }
         else
         {
-            <span class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+            <span style = "cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
         }
     </td>
-   
+
     <th>
 
-        <button class="btn btn-outline-danger" btn-margin=3px btn-padding=0
+        <button class="btn btn-sm btn-outline-danger" margin="2"
+                @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
+            <font size=2> Elimina</font>
+        </button>
+
+
+    </th>
+
+
+</tr>
+            }
+        }
+        else{
+            if (progetto.Archiviato){
+<tr>
+    <td><font size=2>@progetto.NomeProgetto</font></td>
+
+    <td><font size=2>@progetto.Cliente</font></td>
+
+    <td><font size=2>@progetto.Descrizione</font></td>
+
+    <td><font size=2>@progetto.DataInizio</font></td>
+
+    <td><font size=2>@progetto.DataScadenza</font></td>
+
+    <td align="center" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
+        <span style = "cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" title="Dettaglio e modifica"></span>
+    </td>
+
+    <td align="center" @onclick="e => OnPagato(progetto)">
+        @if (progetto.Pagato)
+        {
+            <span style = "cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+        }
+        else
+        {
+            <span style = "cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+        }
+    </td>
+
+    <td align="center" @onclick="e => OnArchiviato(progetto)">
+        @if (progetto.Archiviato)
+        {
+            <span style = "cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+        }
+        else
+        {
+            <span style = "cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+        }
+    </td>
+
+    <th>
+        <button class="btn btn-sm btn-outline-danger" btn-margin=3px btn-padding=0
                 @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
             Elimina
         </button>
-
     </th>
 
 
