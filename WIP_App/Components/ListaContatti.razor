@@ -1,4 +1,4 @@
-﻿
+﻿@using System.IO
 
 <div>
 
@@ -7,11 +7,10 @@
     </div>
 
     <div style="float:right">
-        <form>
-            <label for="ricercaContatto">Ricerca contatto:</label>
-            <input type="search" id="ricercaContattoId" name="ricercaContatto" placeholder="nome contatto...">
-            <input type="submit">
-        </form>
+            <label for="ricercaContatto">Ricerca:</label>
+            <input type="search" id="ricercaContattoId" name="ricercaContatto" 
+                   placeholder="nome contatto..."
+                   @bind-value="ContattoRicerca">
     </div>
 
     @* necessario per <div style="float:right"e"float:left">  *@
@@ -42,33 +41,42 @@
     @foreach (var contatto in ListaElementiContatto)
 
     {
-<tr>
-    <td><font size=2>@contatto.Nome @contatto.Cognome</font></td>
-    @*<td><font size=2>@contatto.Cognome</font></td>*@
-    <td><font size=2>@contatto.Azienda</font></td>
-    <td><font size=2>@contatto.Indirizzo</font></td>
-    <td><font size=2>@contatto.Telefono</font></td>
-    <td><font size=2>@contatto.Email</font></td>
-    <td><font size=2>@contatto.Note</font></td>
-    
-    <td align="center">
-        <button class="btn btn-sm btn-outline-secondary" @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
-            <span style="cursor: pointer" class="oi oi-pencil" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
-        </button>
-    </td>
-    <th>
-        <button class="btn btn-sm btn-outline-danger"
-                @onclick="e => OnEliminaContatto.InvokeAsync (contatto)">
-            Elimina
-        </button>
-    </th>
-</tr>
+        @if ( contatto.Nome.Contains(ContattoRicerca) ||
+           contatto.Cognome.Contains(ContattoRicerca) ||
+           contatto.Azienda.Contains(ContattoRicerca) )
+        {
+
+            <tr>
+                <td><font size=2>@contatto.Nome @contatto.Cognome</font></td>
+                @*<td><font size=2>@contatto.Cognome</font></td>*@
+                <td><font size=2>@contatto.Azienda</font></td>
+                <td><font size=2>@contatto.Indirizzo</font></td>
+                <td><font size=2>@contatto.Telefono</font></td>
+                <td><font size=2>@contatto.Email</font></td>
+                <td><font size=2>@contatto.Note</font></td>
+
+                <td align="center" @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
+                    <span style="cursor: pointer; color:dodgerblue"
+                          class="oi oi-pencil" aria-hihhen="true"
+                          cursor title="Modifica"></span>
+                </td>
+                <th>
+                    <button class="btn btn-sm btn-outline-danger"
+                            title="Attenzione Eliminazione Permanente!"
+                            @onclick="e => OnEliminaContatto.InvokeAsync(contatto)">
+                        Elimina
+                    </button>
+                </th>
+            </tr>
+        }
     }
 </table>
 
 
 
 @code {
+
+    public string ContattoRicerca = "";
 
     [Parameter]
     public List<Contatto> ListaElementiContatto { get; set; }

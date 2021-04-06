@@ -1,69 +1,65 @@
-﻿
+﻿@using System.IO
+
 <h5>@Titolo</h5>
-@*<div align="right">
-    <button class="btn btn-outline-primary mb-4"
-            @onclick="OnCrea">
-        Nuovo Appuntamento
-    </button>
-</div>*@
 
-    <table class="table">
-        <thead class="table-success">
-            <tr>
-                <th><font size=2>Data</font></th>
-                <th><font size=2>Ora</font></th>
-                <th><font size=2>Nome</font></th>
-                <th><font size=2>Luogo</font></th>
-                <th><font size=2>Descrizione</font></th>
-                <th><font size=2>Dettagli</font></th>
-                <th>
-                    <button class="btn btn-sm btn-primary "
-                            @onclick="OnCrea">
-                        Nuovo 
-                    </button>
-                </th>
-            </tr>
-        </thead>
-        @foreach (var evento in ListaElementi)
-        {
-    <tr>
-        <td><font size=2>@evento.Data</font></td>
-        <td><font size=2>@evento.Ora</font></td>
-        <td><font size=2>@evento.Nome</font></td>
-        <td><font size=2>@evento.Localita</font></td>
-        <td><font size=2>@evento.Descrizione</font></td>
-        
-        <td align="center">
-            <button class="btn btn-sm btn-outline-info" @onclick="e => OnModifica.InvokeAsync(evento)">
-                <span style="cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
-            </button>
-        </td>
-        <th>
-            <button class="btn btn-sm  btn-outline-danger"
-                    @onclick="e => OnElimina.InvokeAsync(evento)">
-                Elimina
-            </button>
-        </th>
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th><font size=2>Data</font></th>
+            <th><font size=2>Ora</font></th>
+            <th><font size=2>Nome</font></th>
+            <th><font size=2>Luogo</font></th>
+            <th><font size=2>Descrizione</font></th>
+            <th><font size=2>Dettagli</font></th>
+            <th>
+                <button class="btn btn-sm btn-primary "
+                        @onclick="OnCrea">
+                    Nuovo
+                </button>
+            </th>
+        </tr>
+    </thead>
+    @foreach (var evento in ListaElementi)
+    {
+        <tr>
+            <td><font size=2>@evento.Data</font></td>
+            <td><font size=2>@evento.Ora</font></td>
+            <td><font size=2>@evento.Nome</font></td>
+            <td><font size=2>@evento.Localita</font></td>
+            <td><font size=2>@evento.Descrizione</font></td>
 
-    </tr>
-        }
-    </table>
-    @code {
+            <td align="center" @onclick="e => OnModifica.InvokeAsync(evento)">
+                <span style="cursor: pointer; color:dodgerblue"
+                      class="oi oi-magnifying-glass" aria-hihhen="true"
+                      cursor title="Dettaglio e modifica"></span>
+            </td>
+            <th>
+                <button class="btn btn-sm  btn-outline-danger"
+                        title="Attenzione! Eliminazione permanente."
+                        @onclick="e => OnElimina.InvokeAsync(evento)">
+                    Elimina
+                </button>
+            </th>
 
-        [Parameter]
-        public string Titolo { get; set; } = "Lista Appuntamenti";
-
-        [Parameter]
-        public List<ElementoListaEventi> ListaElementi { get; set; }
-
-        [Parameter]
-        public EventCallback OnCrea { get; set; }
-
-        [Parameter]
-        public EventCallback<ElementoListaEventi> OnModifica { get; set; }
-
-        [Parameter]
-        public EventCallback<ElementoListaEventi> OnElimina { get; set; }
-
-
+        </tr>
     }
+</table>
+@code {
+
+    [Parameter]
+    public string Titolo { get; set; } = "Lista Appuntamenti";
+
+    [Parameter]
+    public List<ElementoListaEventi> ListaElementi { get; set; }
+
+    [Parameter]
+    public EventCallback OnCrea { get; set; }
+
+    [Parameter]
+    public EventCallback<ElementoListaEventi> OnModifica { get; set; }
+
+    [Parameter]
+    public EventCallback<ElementoListaEventi> OnElimina { get; set; }
+
+
+}

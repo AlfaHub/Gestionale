@@ -1,14 +1,16 @@
 ﻿@using System.IO
+
 <div>
     <div style="float:left" width=100px>
         <h5>Progetti</h5>
     </div>
     <div style="float:right">
-        <form>
             <label for="ricerca">Ricerca:</label>
-            <input type="search" id="ricerca" name="ricerca" placeholder="nome progetto...">
-            <input type="submit" @onclick="OnRicercaProgetto">
-        </form>
+            <input type="search" id="ricerca" name="ricerca" 
+                   placeholder="nome progetto..." 
+                   @bind-value="TestoRicerca">
+            @*<p>@TestoRicerca</p>*@
+        
 
     </div>
 </div>
@@ -30,81 +32,82 @@
                 </font>
             </th>
             <th><font size=2>Pagato</font></th>
-            <th @onclick="e => OnAlternaArchiviato()">
-                <button class="btn btn-sm btn-toolbar" aria-hidden="true">
-                    <font size=2><b>Archiviato</b></font>
-                </button>
+            <th @onclick="e => OnAlternaArchiviato()" 
+                style = "cursor: pointer">
+                    <font size=2>Archiviato</font>
             </th>
 
             <th>
-
                 <button class="btn btn-sm btn-primary "
                         @onclick="OnCreaProgetto">
                     <font size=2>Nuovo</font>
                 </button>
-
             </th>
 
         </tr>
     </thead>
     @foreach (var progetto in ListaElementiProgetto)
     {
-
-
-
         @if (!alternaArchiviato)
         {
-            @if (!progetto.Archiviato)
+            @if (!progetto.Archiviato && 
+                   (progetto.NomeProgetto.Contains(TestoRicerca) || 
+                    progetto.Cliente.Contains(TestoRicerca) || 
+                    progetto.Descrizione.Contains(TestoRicerca)
+                    )
+                )
             {
                 <tr>
-
                     <td><font size=2>@progetto.NomeProgetto</font></td>
                     <td><font size=2>@progetto.Cliente</font></td>
                     <td><font size=2>@progetto.Descrizione</font></td>
                     <td><font size=2>@progetto.DataInizio</font></td>
                     <td><font size=2>@progetto.DataScadenza</font></td>
                     <td align="center">
-                        <button class="btn btn-sm btn-outline-info"  
-                                @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-                            <span style = "cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
-                        </button>
+                            <span @onclick="e => OnModificaProgetto.InvokeAsync(progetto)" 
+                                  style = "cursor: pointer; color: dodgerblue" 
+                                  class="oi oi-magnifying-glass" aria-hihhen="true" 
+                                  cursor title="Dettaglio e modifica"></span>
                     </td>
 
-
-                    
-
-                    <td align="center">
-                         <button class="btn btn-sm btn-outline-secondary" 
-                            @onclick="e => OnPagato(progetto)"> 
-
+                    <td align="center" >
                         @if (progetto.Pagato)
                         {
-                            <span style="cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+                            <span @onclick="e => OnPagato(progetto)" 
+                                  style="cursor: pointer; color: green" 
+                                  class="oi oi-check" aria-hihhen="true" 
+                                  title="si"></span>
                         }
                         else
                         {
-                            <span style="cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+                            <span @onclick="e => OnPagato(progetto)" 
+                                  style="cursor: pointer; color: red; font-size:small " 
+                                  class="oi oi-x" aria-hihhen="true"
+                                  title="no"></span>
                         }
-                        </button>
                     </td>
 
-                    <td align="center"> 
-                        <button class="btn btn-sm btn-outline-secondary"
-                                @onclick="e => OnArchiviato(progetto)">
+                    <td align="center" @onclick="e => OnArchiviato(progetto)"> 
                             @if (progetto.Archiviato)
                             {
-                                <span style="cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+                                <span @onclick="e => OnArchiviato(progetto)" 
+                                      style="cursor: pointer; color: green" 
+                                      class="oi oi-check" aria-hihhen="true" 
+                                      title="si"></span>
                             }
                             else
                             {
-                                <span style="cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+                                <span @onclick="e => OnArchiviato(progetto)" 
+                                      style="cursor: pointer; color: red; font-size:small" 
+                                      class="oi oi-x" aria-hihhen="true" 
+                                      title="no"></span>
                             }
-                        </button>
                     </td>
 
                     <th>
 
-                        <button class="btn btn-sm btn-outline-danger" margin="2" title="Attenzione Eliminazione Permanente!"
+                        <button class="btn btn-sm btn-outline-danger"  
+                                title="Attenzione! Eliminazione Permanente."
                                 @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
                             <font size=2> Elimina</font>
                         </button>
@@ -117,55 +120,64 @@
             }
         }
         else{
-            if (progetto.Archiviato){
+            if (progetto.Archiviato &&
+                    (progetto.NomeProgetto.Contains(TestoRicerca) ||
+                    progetto.Cliente.Contains(TestoRicerca) ||
+                    progetto.Descrizione.Contains(TestoRicerca))
+                )
+            {
                 <tr>
                     <td><font size=2>@progetto.NomeProgetto</font></td>
-
                     <td><font size=2>@progetto.Cliente</font></td>
-
                     <td><font size=2>@progetto.Descrizione</font></td>
-
                     <td><font size=2>@progetto.DataInizio</font></td>
-
                     <td><font size=2>@progetto.DataScadenza</font></td>
 
                     <td align="center">
-                        <button class="btn btn-sm btn-outline-info" @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
-                            <span style="cursor: pointer" class="oi oi-magnifying-glass" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
-                        </button>
+                            <span style="cursor: pointer; color: dodgerblue" 
+                                  class="oi oi-magnifying-glass" aria-hihhen="true" 
+                                  cursor title="Dettaglio e modifica" 
+                                  @onclick="e => OnModificaProgetto.InvokeAsync(progetto)">
+                            </span>
                     </td>
 
                     <td align="center">
-                        <button class="btn btn-sm btn-outline-secondary"
-                                @onclick="e => OnPagato(progetto)">
-
                             @if (progetto.Pagato)
                             {
-                                <span style="cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+                                <span @onclick="e => OnPagato(progetto)" 
+                                      style="cursor: pointer; color: green" 
+                                      class="oi oi-check" aria-hihhen="true" 
+                                      title="si"></span>
                             }
                             else
                             {
-                                <span style="cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+                                <span @onclick="e => OnPagato(progetto)" 
+                                      style="cursor: pointer; color: red; font-size:small" 
+                                      class="oi oi-x" aria-hihhen="true" 
+                                      title="no"></span>
                             }
-                        </button>
                     </td>
 
-                    <td align="center">
-                        <button class="btn btn-sm btn-outline-secondary"
-                                @onclick="e => OnArchiviato(progetto)">
+                    <td align="center" @onclick="e => OnArchiviato(progetto)">
                             @if (progetto.Archiviato)
                             {
-                                <span style="cursor: pointer" class="oi oi-check" aria-hihhen="true" title="si"></span>
+                                <span @onclick="e => OnArchiviato(progetto)" 
+                                      style="cursor: pointer; color: green" 
+                                      class="oi oi-check" aria-hihhen="true" 
+                                      title="si"></span>
                             }
                             else
                             {
-                                <span style="cursor: pointer" class="oi oi-circle-x" aria-hihhen="true" title="no"></span>
+                                <span @onclick="e => OnArchiviato(progetto)" 
+                                      style="cursor: pointer; color: red; font-size:small" 
+                                      class="oi oi-x" aria-hihhen="true" 
+                                      title="no"></span>
                             }
-                        </button>
                     </td>
 
                     <th>
-                        <button class="btn btn-sm btn-outline-danger" title="Attenzione Eliminazione Permanente!"
+                        <button class="btn btn-sm btn-outline-danger" 
+                                title="Attenzione Eliminazione Permanente!"
                                 @onclick="e => OnEliminaProgetto.InvokeAsync(progetto)">
                             Elimina
                         </button>
@@ -184,6 +196,7 @@
 
 @code {
 
+    public string TestoRicerca = "";
     [Parameter]
     public string Titolo { get; set; }
     [Parameter]
