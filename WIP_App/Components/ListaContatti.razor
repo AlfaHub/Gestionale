@@ -1,9 +1,11 @@
 ﻿
 
 <div>
+
     <div style="float:left" width=100px height=100px>
         <h5>Rubrica</h5>
     </div>
+
     <div style="float:right">
         <form>
             <label for="ricercaContatto">Ricerca contatto:</label>
@@ -11,16 +13,10 @@
             <input type="submit">
         </form>
     </div>
+
     @* necessario per <div style="float:right"e"float:left">  *@
     <div style=”clear:both;”></div>
 
-
-    @*<div align="right">
-            <button class="btn btn-outline-primary mb-4"
-                    @onclick="OnCreaContatto">
-                Nuovo contatto
-            </button>
-        </div>*@
 
 </div>
 <table class="table table-striped table-active ">
@@ -54,8 +50,11 @@
     <td><font size=2>@contatto.Telefono</font></td>
     <td><font size=2>@contatto.Email</font></td>
     <td><font size=2>@contatto.Note</font></td>
-    <td align="center" @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
-        <span style="cursor: pointer" class="oi oi-pencil " aria-hihhen="true" title="Modifica"></span>
+    
+    <td align="center">
+        <button class="btn btn-sm btn-outline-secondary" @onclick="e => OnModificaContatto.InvokeAsync(contatto)">
+            <span style="cursor: pointer" class="oi oi-pencil" aria-hihhen="true" cursor title="Dettaglio e modifica"></span>
+        </button>
     </td>
     <th>
         <button class="btn btn-sm btn-outline-danger"
